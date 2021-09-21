@@ -12,26 +12,26 @@ jobs:
     runs-on: ubuntu-18.04
     setps:
       - name: "Setup the environment"
-        - run: sudo apt-get install rar
-        - run: sudo apt-get install unrar
-        - run: sudo apt-get install wget
+        run: sudo apt-get install rar
+        run: sudo apt-get install unrar
+        run: sudo apt-get install wget
   download-nacos:
     runs-on: ubuntu-18.04
     steps:
       - name: "Download nacos-server"
-        - run: mkdir -p nacos
-        - run: wget -O nacos/nacos-server.tar.gz -c -N --tries=3 --show-progress $NACOS_BINARY_URL
-        - run: ls nacos
+        run: mkdir -p nacos
+        run: wget -O nacos/nacos-server.tar.gz -c -N --tries=3 --show-progress $NACOS_BINARY_URL
+        run: ls nacos
   unpack-nacos:
     runs-on: ubuntu-18.04
     setps:
       - name: "Unpack nacos-server"
-        - run: mkdir -p nacos/8848
-        - run: tar -xzvf nacos/nacos-server.tar.gz nacos/8848
-        - run: ls nacos/8848
-        - run: mkdir -p nacos/8850
-        - run: tar -xzvf nacos/nacos-server.tar.gz nacos/8850
-        - run: ls nacos/8850
+        run: mkdir -p nacos/8848
+        run: tar -xzvf nacos/nacos-server.tar.gz nacos/8848
+        run: ls nacos/8848
+        run: mkdir -p nacos/8850
+        run: tar -xzvf nacos/nacos-server.tar.gz nacos/8850
+        run: ls nacos/8850
   startup-nacos:
     runs-on: ubuntu-18.04
     setps:

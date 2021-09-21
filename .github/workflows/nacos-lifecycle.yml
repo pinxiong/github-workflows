@@ -29,14 +29,14 @@ jobs:
   startup-nacos:
     runs-on: ubuntu-18.04
     setps:
-      -name: "Startup Nacos server with 8848"
-       run: ./nacos/8848/nacos/bin/startup.sh -Dnacos.standalone=true -Dserver.port=8848
-      -name: "Startup Nacos server with 8850"
-       run: ./nacos/8850/nacos/bin/startup.sh -Dnacos.standalone=true -Dserver.port=8850
+      - name: "Startup Nacos server with 8848"
+        run: ./nacos/8848/nacos/bin/startup.sh -Dnacos.standalone=true -Dserver.port=8848
+      - name: "Startup Nacos server with 8850"
+        run: ./nacos/8850/nacos/bin/startup.sh -Dnacos.standalone=true -Dserver.port=8850
   shutdown-nacos:
     runs-on: ubuntu-18.04
     steps:
-      -name: "Shutdown Nacos server with 8848"
+      - name: "Shutdown Nacos server with 8848"
         run: ./nacos/8848/nacos/bin/shutdown.sh
-      -name: "Shutdown Nacos server with 8850"
+      - name: "Shutdown Nacos server with 8850"
         run: ./nacos/8850/nacos/bin/shutdown.sh

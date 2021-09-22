@@ -33,10 +33,10 @@ jobs:
       - name: "Unpack nacos-server"
         run: |
           mkdir -p ～/nacos/8848
-          tar -xzvf ～/nacos/nacos-server.tar.gz ～/nacos/8848
+          tar -xzvf ～/nacos/nacos-server.tar.gz -C ～/nacos/8848
           ls ～/nacos/8848
           mkdir -p ～/nacos/8850
-          tar -xzvf ～/nacos/nacos-server.tar.gz ～/nacos/8850
+          tar -xzvf ～/nacos/nacos-server.tar.gz -C ～/nacos/8850
           ls ～/nacos/8850
   
   startup:

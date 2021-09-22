@@ -38,6 +38,12 @@ jobs:
     steps:
       - name: "Shutdown nacos-server"
         run: |
+          echo "ls /"
+          ls /
+          echo "ls ~"
+          ls ~
+          echo "ls nacos"
+          ls nacos
           ls nacos/8848
           ./nacos/8848/nacos/bin/shutdown.sh
           ls nacos/8850

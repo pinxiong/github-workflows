@@ -39,7 +39,7 @@ jobs:
           echo ${{ env.NACOS_BINARY_URL }}
           echo "Download the file"
           $client = new-object System.Net.WebClient
-          $client.DownloadFile(${{ env.NACOS_BINARY_URL }}, 'nacos\nacos-server.tar.gz')
+          $client.DownloadFile('${{ env.NACOS_BINARY_URL }}', 'nacos\nacos-server.tar.gz')
           echo "list downloaded files"
           tree nacos
           mkdir -p nacos\8848

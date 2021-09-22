@@ -13,7 +13,7 @@ jobs:
       - name: "nacos lifecycle ubuntu"
         run: |
           mkdir -p nacos
-          wget -O nacos/nacos-server.tar.gz -c -N --tries=3 --show-progress $NACOS_BINARY_URL
+          wget -O nacos/nacos-server.tar.gz -c -N --tries=3 --show-progress ${{ env.NACOS_BINARY_URL }}
           mkdir -p nacos/8848
           tar -zxvf nacos/nacos-server.tar.gz -C nacos/8848
           ./nacos/8848/nacos/bin/startup.sh -m standalone
@@ -36,9 +36,12 @@ jobs:
       - name: "nacos lifecycle windows"
         run: |
           mkdir -p nacos
-          echo "get NACOS_BINARY_URL value"
           echo ${{ env.NACOS_BINARY_URL }}
-          curl ${{ env.NACOS_BINARY_URL }} -o nacos\nacos-server.tar.gz
+          echo "Download the file"
+          $client = new-object System.Net.WebClient
+          $client.DownloadFile(${{ env.NACOS_BINARY_URL }}, 'nacos\nacos-server.tar.gz')
+          echo "list downloaded files"
+          tree nacos
           mkdir -p nacos\8848
           7z x nacos/nacos-server.tar.gz -C nacos\8848
           .\nacos\8848\nacos\bin\startup.cmd -m standalone

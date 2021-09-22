@@ -5,7 +5,7 @@ on: [push, pull_request, workflow_dispatch]
 env:
   #nacos-server's version
   NACOS_VERSION: 2.0.3
-  NACOS_BINARY_URL: "https://github.com/alibaba/nacos/releases/download/${NACOS_VERSION}/nacos-server-${NACOS_VERSION}.tar.gz"
+  NACOS_BINARY_URL: https://github.com/alibaba/nacos/releases/download/${NACOS_VERSION}/nacos-server-${NACOS_VERSION}.tar.gz
 
 jobs:
   setup:
@@ -24,7 +24,7 @@ jobs:
       - name: "Download nacos-server"
         run: |
           mkdir -p nacos
-          wget -O nacos/nacos-server.tar.gz -c -N --tries=3 --show-progress $NACOS_BINARY_URL
+          wget -O nacos/nacos-server.tar.gz -c -N --tries=3 --show-progress `echo $NACOS_BINARY_URL`
           ls nacos
   
   unpack:

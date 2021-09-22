@@ -36,10 +36,10 @@ jobs:
       - name: "nacos lifecycle windows"
         run: |
           mkdir -p nacos
-          echo "dir nacos"
-          dir nacos
+          echo "dir ~"
+          dir ~
           echo "get NACOS_BINARY_URL value"
-          echo %NACOS_BINARY_URL%
+          echo $NACOS_BINARY_URL
           curl %NACOS_BINARY_URL% -o nacos\nacos-server.tar.gz
           mkdir -p nacos\8848
           7z x nacos/nacos-server.tar.gz -C nacos\8848

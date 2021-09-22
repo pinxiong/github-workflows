@@ -17,12 +17,14 @@ jobs:
           mkdir -p nacos/8848
           tar -zxvf nacos/nacos-server.tar.gz -C nacos/8848
           ./nacos/8848/nacos/bin/startup.sh -m standalone
-          sleep 30s
+          sleep 20s
+          cat nacos/8848/nacos/logs/start.out
           mkdir -p nacos/8850
           tar -zxvf nacos/nacos-server.tar.gz -C nacos/8850
           sed -i "s#^server.port=.*#server.port=8850#g" nacos/8850/nacos/conf/application.properties
           ./nacos/8850/nacos/bin/startup.sh -m standalone
-          sleep 30s
+          sleep 20s
+          cat nacos/8850/nacos/logs/start.out
           ./nacos/8848/nacos/bin/shutdown.sh
           sleep 10s
           ./nacos/8850/nacos/bin/shutdown.sh

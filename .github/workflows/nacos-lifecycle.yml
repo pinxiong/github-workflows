@@ -24,7 +24,7 @@ jobs:
         run: |
           mkdir -p ～/nacos
           wget -O ～/nacos/nacos-server.tar.gz -c -N --tries=3 --show-progress $NACOS_BINARY_URL
-          ls nacos
+          ls ～/nacos
   
   unpack:
     needs: [download]

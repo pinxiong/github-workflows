@@ -7,10 +7,10 @@ env:
   NACOS_BINARY_URL: https://github.com/alibaba/nacos/releases/download/2.0.3/nacos-server-2.0.3.tar.gz
 
 jobs:
-  nacos-lifecycle:
+  nacos-lifecycle-ubuntu:
     runs-on: ubuntu-18.04
     steps:
-      - name: "nacos lifecycle"
+      - name: "nacos lifecycle ubuntu"
         run: |
           mkdir -p nacos
           wget -O nacos/nacos-server.tar.gz -c -N --tries=3 --show-progress $NACOS_BINARY_URL
@@ -19,6 +19,29 @@ jobs:
           ./nacos/8848/nacos/bin/startup.sh -m standalone
           sleep 30s
           cat nacos/8848/nacos/logs/start.out
+          mkdir -p nacos/8850
+          tar -zxvf nacos/nacos-server.tar.gz -C nacos/8850
+          sed -i "s#^server.port=.*#server.port=8850#g" nacos/8850/nacos/conf/application.properties
+          ./nacos/8850/nacos/bin/startup.sh -m standalone
+          sleep 30s
+          cat nacos/8850/nacos/logs/start.out
+          ./nacos/8848/nacos/bin/shutdown.sh
+          sleep 10s
+          ./nacos/8850/nacos/bin/shutdown.sh
+          sleep 10s
+          
+  nacos-lifecycle-windows:
+    runs-on: windows-2019
+    steps:
+      - name: "nacos lifecycle windows"
+        run: |
+          mkdir -p nacos
+          curl $NACOS_BINARY_URL -o nacos\nacos-server.tar.gz
+          mkdir -p nacos\8848
+          7z x nacos/nacos-server.tar.gz -C nacos\8848
+          .\nacos\8848\nacos\bin\startup.cmd -m standalone
+          sleep 30s
+          cat nacos\8848\nacos\logs\start.out
           mkdir -p nacos/8850
           tar -zxvf nacos/nacos-server.tar.gz -C nacos/8850
           sed -i "s#^server.port=.*#server.port=8850#g" nacos/8850/nacos/conf/application.properties

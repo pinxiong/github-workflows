@@ -31,6 +31,11 @@ jobs:
           tar -zxvf nacos/nacos-server.tar.gz -C nacos/8850
           sed -i "s#^server.port=.*#server.port=8850#g" nacos/8850/nacos/conf/application.properties
           ./nacos/8850/nacos/bin/startup.sh -m standalone
+          echo "ls /"
+          ls /
+          echo "ls ~"
+          ls ~
+          echo "ls nacos"
 
   shutdown:
     needs: [startup]

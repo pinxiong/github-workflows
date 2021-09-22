@@ -22,9 +22,9 @@ jobs:
     steps:
       - name: "Download nacos-server"
         run: |
-          mkdir -p ～/nacos
-          wget -O ～/nacos/nacos-server.tar.gz -c -N --tries=3 --show-progress $NACOS_BINARY_URL
-          ls ～/nacos
+          mkdir -p ${{ github.workspace }}/nacos
+          wget -O ${{ github.workspace }}/nacos/nacos-server.tar.gz -c -N --tries=3 --show-progress $NACOS_BINARY_URL
+          ls ${{ github.workspace }}/nacos
   
   unpack:
     needs: [download]
@@ -32,12 +32,12 @@ jobs:
     steps:
       - name: "Unpack nacos-server"
         run: |
-          mkdir -p ～/nacos/8848
-          tar -xzvf ～/nacos/nacos-server.tar.gz -C ～/nacos/8848
-          ls ～/nacos/8848
-          mkdir -p ～/nacos/8850
-          tar -xzvf ～/nacos/nacos-server.tar.gz -C ～/nacos/8850
-          ls ～/nacos/8850
+          mkdir -p ${{ github.workspace }}/nacos/8848
+          tar -xzvf ${{ github.workspace }}/nacos/nacos-server.tar.gz -C ${{ github.workspace }}/nacos/8848
+          ls ${{ github.workspace }}/nacos/8848
+          mkdir -p ${{ github.workspace }}/nacos/8850
+          tar -xzvf ${{ github.workspace }}/nacos/nacos-server.tar.gz -C ${{ github.workspace }}/nacos/8850
+          ls ${{ github.workspace }}/nacos/8850
   
   startup:
     needs: [unpack]
@@ -45,8 +45,8 @@ jobs:
     steps:
       - name: "Startup nacos-server"
         run: |
-          sh ～/nacos/8848/nacos/bin/startup.sh -Dnacos.standalone=true -Dserver.port=8848
-          sh ～/nacos/8850/nacos/bin/startup.sh -Dnacos.standalone=true -Dserver.port=8850
+          sh ${{ github.workspace }}/nacos/8848/nacos/bin/startup.sh -Dnacos.standalone=true -Dserver.port=8848
+          sh ${{ github.workspace }}/nacos/8850/nacos/bin/startup.sh -Dnacos.standalone=true -Dserver.port=8850
   
   shutdown:
     needs: [startup]
@@ -54,5 +54,5 @@ jobs:
     steps:
       - name: "Shutdown nacos-server"
         run: |
-          sh ～/nacos/8848/nacos/bin/shutdown.sh
-          sh ～/nacos/8850/nacos/bin/shutdown.sh
+          sh ${{ github.workspace }}/nacos/8848/nacos/bin/shutdown.sh
+          sh ${{ github.workspace }}/nacos/8850/nacos/bin/shutdown.sh

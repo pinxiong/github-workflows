@@ -16,7 +16,7 @@ jobs:
           sudo apt-get install unrar
           sudo apt-get install wget
 
-  download:
+  startup:
     needs: [setup]
     runs-on: ubuntu-18.04
     steps:
@@ -24,34 +24,13 @@ jobs:
         run: |
           mkdir -p nacos
           wget -O nacos/nacos-server.tar.gz -c -N --tries=3 --show-progress $NACOS_BINARY_URL
-          ls nacos
-  
-  unpack:
-    needs: [download]
-    runs-on: ubuntu-18.04
-    steps:
-      - name: "Unpack nacos-server"
-        run: |
           mkdir -p nacos/8848
-          ls nacos
-          tar -xzvf nacos/nacos-server.tar.gz nacos/8848
-          ls nacos/8848
-          mkdir -p nacos/8850
-          ls nacos
-          tar -xzvf nacos/nacos-server.tar.gz nacos/8850
-          ls nacos/8850
-  
-  startup:
-    needs: [unpack]
-    runs-on: ubuntu-18.04
-    steps:
-      - name: "Startup nacos-server"
-        run: |
-          ls nacos/8848
+          tar -zxvf nacos/nacos-server.tar.gz nacos/8848
           sh nacos/8848/nacos/bin/startup.sh -Dnacos.standalone=true -Dserver.port=8848
-          ls nacos/8850
+          mkdir -p nacos/8850
+          tar -zxvf nacos/nacos-server.tar.gz nacos/8850
           sh nacos/8850/nacos/bin/startup.sh -Dnacos.standalone=true -Dserver.port=8850
-  
+
   shutdown:
     needs: [startup]
     runs-on: ubuntu-18.04

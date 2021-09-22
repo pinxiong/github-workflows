@@ -16,7 +16,7 @@ jobs:
           sudo apt-get install unrar
           sudo apt-get install wget
 
-  download:
+  startup:
     needs: [setup]
     runs-on: ubuntu-18.04
     steps:
@@ -25,27 +25,17 @@ jobs:
           mkdir -p ${{ github.workspace }}/nacos
           wget -O ${{ github.workspace }}/nacos/nacos-server.tar.gz -c -N --tries=3 --show-progress $NACOS_BINARY_URL
           ls ${{ github.workspace }}/nacos
-  
-  unpack:
-    needs: [download]
-    runs-on: ubuntu-18.04
-    steps:
-      - name: "Unpack nacos-server"
+      - name: "Start nacos-server with 8848"
         run: |
           mkdir -p ${{ github.workspace }}/nacos/8848
           tar -xzvf ${{ github.workspace }}/nacos/nacos-server.tar.gz -C ${{ github.workspace }}/nacos/8848
           ls ${{ github.workspace }}/nacos/8848
+          sh ${{ github.workspace }}/nacos/8848/nacos/bin/startup.sh -Dnacos.standalone=true -Dserver.port=8848
+      - name: "Start nacos-server with 8850"
+        run: |
           mkdir -p ${{ github.workspace }}/nacos/8850
           tar -xzvf ${{ github.workspace }}/nacos/nacos-server.tar.gz -C ${{ github.workspace }}/nacos/8850
           ls ${{ github.workspace }}/nacos/8850
-  
-  startup:
-    needs: [unpack]
-    runs-on: ubuntu-18.04
-    steps:
-      - name: "Startup nacos-server"
-        run: |
-          sh ${{ github.workspace }}/nacos/8848/nacos/bin/startup.sh -Dnacos.standalone=true -Dserver.port=8848
           sh ${{ github.workspace }}/nacos/8850/nacos/bin/startup.sh -Dnacos.standalone=true -Dserver.port=8850
   
   shutdown:
@@ -54,5 +44,7 @@ jobs:
     steps:
       - name: "Shutdown nacos-server"
         run: |
-          sh ${{ github.workspace }}/nacos/8848/nacos/bin/shutdown.sh
-          sh ${{ github.workspace }}/nacos/8850/nacos/bin/shutdown.sh
+          cd ${{ github.workspace }}/nacos/8848/nacos/bin/
+          ./shutdown.sh
+          cd ${{ github.workspace }}/nacos/8850/nacos/bin/
+          ./shutdown.sh

@@ -41,19 +41,23 @@ jobs:
           mkdir -p nacos/8848
           tar -zxvf nacos/nacos-server.tar.gz -C nacos/8848
           Get-ChildItem -Path nacos/8848 -Force
-          set MODE="standalone"
+          sed -i "s#^set MODE=.*#set MODE=\"standalone\"#g" ${{ github.workspace }}/nacos/8848/nacos/bin/startup.cmd
           cmd /c ${{ github.workspace }}/nacos/8848/nacos/bin/startup.cmd
           Start-Sleep -s 30
-          echo "get nacos-server process"
+          echo "get nacos-server process 8848"
           get-process nacos-server
           Get-Content nacos/8848/nacos/logs/start.out
           mkdir -p nacos/8850
           tar -zxvf nacos/nacos-server.tar.gz -C nacos/8850
+          Get-ChildItem -Path nacos/8850 -Force
+          sed -i "s#^set MODE=.*#set MODE=\"standalone\"#g" ${{ github.workspace }}/nacos/8850/nacos/bin/startup.cmd
           sed -i "s#^server.port=.*#server.port=8850#g" nacos/8850/nacos/conf/application.properties
-          ./nacos/8850/nacos/bin/startup.sh -m standalone
-          sleep 30s
-          cat nacos/8850/nacos/logs/start.out
-          ./nacos/8848/nacos/bin/shutdown.sh
-          sleep 10s
-          ./nacos/8850/nacos/bin/shutdown.sh
-          sleep 10s
+          cmd /c ${{ github.workspace }}/nacos/8850/nacos/bin/startup.cmd
+          Start-Sleep –s 30
+          echo "get nacos-server process 8850"
+          get-process nacos-server
+          Get-Content nacos/8850/nacos/logs/start.out
+          cmd /c ${{ github.workspace }}/nacos/8848/nacos/bin/shutdown.sh
+          Start-Sleep –s 10
+          cmd /c ${{ github.workspace }}/nacos/8850/nacos/bin/shutdown.sh
+          Start-Sleep –s 10

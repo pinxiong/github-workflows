@@ -41,7 +41,11 @@ jobs:
           mkdir -p nacos/8848
           tar -zxvf nacos/nacos-server.tar.gz -C nacos/8848
           Get-ChildItem -Path nacos/8848 -Force
+          echo "update before"
+          Get-Content ${{ github.workspace }}/nacos/8848/nacos/bin/startup.cmd
           sed -i "s#^set MODE=.*#set MODE=\"standalone\"#g" ${{ github.workspace }}/nacos/8848/nacos/bin/startup.cmd
+          echo "update after"
+          Get-Content ${{ github.workspace }}/nacos/8848/nacos/bin/startup.cmd
           cmd /c ${{ github.workspace }}/nacos/8848/nacos/bin/startup.cmd
           Start-Sleep -s 30
           echo "get nacos-server process 8848"

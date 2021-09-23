@@ -38,18 +38,11 @@ jobs:
           mkdir -p nacos
           $client = new-object System.Net.WebClient
           $client.DownloadFile('${{ env.NACOS_BINARY_URL }}', 'nacos/nacos-server.tar.gz')
-          echo "ls nacos"
-          Get-ChildItem -Path nacos -Force
           mkdir -p nacos/8848
-          echo "ls nacos/8848"
-          Get-ChildItem -Path nacos/8848 -Force
           7z x nacos/nacos-server.tar.gz -C nacos/8848
           echo "unpack"
           Get-ChildItem -Path nacos/8848 -Force
-          echo "tar"
-          tar -zxvf nacos/nacos-server.tar.gz -C nacos/8848
-          Get-ChildItem -Path nacos/8848 -Force
-          ./nacos/8848/nacos/bin/startup.sh -m standalone
+          Invoke-Item nacos/8848/nacos/bin/startup.cmd -m standalone
           Start-Sleep -s 30
           Get-Content nacos/8848/nacos/logs/start.out
           mkdir -p nacos/8850

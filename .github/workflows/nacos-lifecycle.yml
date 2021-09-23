@@ -37,7 +37,7 @@ jobs:
         run: |
           mkdir -p nacos
           $client = new-object System.Net.WebClient
-          $client.DownloadFile('${{ env.NACOS_BINARY_URL }}', 'nacos')
+          $client.DownloadFile('${{ env.NACOS_BINARY_URL }}', 'nacos/nacos-server.tar.gz')
           mkdir -p nacos\8848
           7z x nacos/nacos-server.tar.gz -C nacos\8848
           tar -zxvf nacos/nacos-server.tar.gz -C nacos/8848

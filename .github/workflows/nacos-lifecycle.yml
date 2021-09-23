@@ -36,7 +36,6 @@ jobs:
       - name: "nacos lifecycle windows"
         run: |
           mkdir -p nacos
-          wget -Uri ${{ env.NACOS_BINARY_URL }} -OutFile nacos/nacos-server.tar.gz
           $client = new-object System.Net.WebClient
           $client.DownloadFile('${{ env.NACOS_BINARY_URL }}', 'nacos')
           mkdir -p nacos\8848

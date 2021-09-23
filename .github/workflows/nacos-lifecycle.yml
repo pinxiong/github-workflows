@@ -43,6 +43,8 @@ jobs:
           Get-ChildItem -Path nacos/8848 -Force
           Invoke-Item nacos/8848/nacos/bin/startup.cmd
           Start-Sleep -s 30
+          echo "get nacos-server process"
+          get-process nacos-server
           Get-Content nacos/8848/nacos/logs/start.out
           mkdir -p nacos/8850
           tar -zxvf nacos/nacos-server.tar.gz -C nacos/8850

@@ -47,7 +47,9 @@ jobs:
           cat nacos/8848/nacos/logs/start.out
           mkdir -p nacos/8850
           tar -zxvf nacos/nacos-server.tar.gz -C nacos/8850
-          sed -i "s#^server.port=.*#server.port=8850#g" nacos/8850/nacos/conf/application.properties
+          sed -i "s#^server.port=.*#server.port=8850#g" nacos/8850/nacos/conf/application.properties > nacos/8850/nacos/conf/application.properties.temp
+          echo "cat nacos/8850/nacos/conf/application.properties.temp"
+          cat nacos/8850/nacos/conf/application.properties.temp
           ./nacos/8850/nacos/bin/startup.sh -m standalone
           sleep 30s
           cat nacos/8850/nacos/logs/start.out

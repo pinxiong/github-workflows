@@ -39,21 +39,15 @@ jobs:
           curl -L -# ${{ env.NACOS_BINARY_URL }} -o nacos/nacos-server.tar.gz
           mkdir -p nacos/8848
           tar -zxvf nacos/nacos-server.tar.gz -C nacos/8848
+          echo "Original"
+          cat nacos/8848/nacos/bin/startup.cmd
           sed '26a set MODE=\"standalone\"' nacos/8848/nacos/bin/startup.cmd
+          echo "Inserted"
+          cat nacos/8848/nacos/bin/startup.cmd
           sed '26d' nacos/8848/nacos/bin/startup.cmd
+          echo "Deleted"
           cat nacos/8848/nacos/bin/startup.cmd
           cmd /c ${{ github.workspace }}/nacos/8848/nacos/bin/startup.cmd
           sleep 30s
           cat nacos/8848/nacos/logs/start.out
-          mkdir -p nacos/8850
-          tar -zxvf nacos/nacos-server.tar.gz -C nacos/8850
-          sed '26a set MODE=\"standalone\"' nacos/8850/nacos/bin/startup.cmd
-          sed '26d' nacos/8848/nacos/bin/startup.cmd
-          sed -i "s/server.port=.*/server.port=8850/g" nacos/8850/nacos/conf/application.properties
-          cmd /c ${{ github.workspace }}/nacos/8850/nacos/bin/startup.cmd
-          sleep 30s
-          cat nacos/8850/nacos/logs/start.out
-          ./nacos/8848/nacos/bin/shutdown.sh
-          sleep 10s
-          ./nacos/8850/nacos/bin/shutdown.sh
-          sleep 10s
+          

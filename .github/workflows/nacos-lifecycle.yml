@@ -40,6 +40,7 @@ jobs:
           mkdir -p nacos/8848
           tar -zxvf nacos/nacos-server.tar.gz -C nacos/8848
           sed -i 's/set MODE=.*/set MODE=\"standalone\"/' nacos/8848/nacos/bin/startup.cmd
+          cat nacos/8848/nacos/bin/startup.cmd
           cmd /c ${{ github.workspace }}/nacos/8848/nacos/bin/startup.cmd
           sleep 30s
           cat nacos/8848/nacos/logs/start.out

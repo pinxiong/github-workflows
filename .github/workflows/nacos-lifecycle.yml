@@ -41,8 +41,8 @@ jobs:
           mkdir -p nacos
           cd nacos
           curl ${{ env.NACOS_BINARY_URL }}
-          echo "ls nacos"
-          ls -arlt nacos
+          echo "ls"
+          ls -arlt
           mkdir -p nacos/8848
           tar -xvf nacos-server.tar.gz -C 8848
           echo "ls nacos/8848"

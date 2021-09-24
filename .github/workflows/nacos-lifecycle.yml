@@ -39,11 +39,12 @@ jobs:
       - name: "nacos lifecycle windows"
         run: |
           mkdir -p nacos
-          curl ${{ env.NACOS_BINARY_URL }} >> nacos/nacos-server.tar.gz
+          cd nacos
+          curl ${{ env.NACOS_BINARY_URL }}
           echo "ls nacos"
           ls -arlt nacos
           mkdir -p nacos/8848
-          tar -xvf nacos/nacos-server.tar.gz -C nacos/8848
+          tar -xvf nacos-server.tar.gz -C 8848
           echo "ls nacos/8848"
           ls nacos/8848
           ./nacos/8848/nacos/bin/startup.sh -m standalone

@@ -50,6 +50,10 @@ jobs:
           tar -zxvf nacos/nacos-server.tar.gz -C nacos/8850
           sed -i 's/set MODE=.*/set MODE=\"standalone\"/g' nacos/8850/nacos/bin/startup.cmd
           sed -i "s/server.port=.*/server.port=8850/g" nacos/8850/nacos/conf/application.properties
+          echo "nacos/8850/nacos/bin/startup.cmd"
+          cat nacos/8850/nacos/bin/startup.cmd
+          echo "nacos/8850/nacos/conf/application.properties"
+          cat nacos/8850/nacos/conf/application.properties
           ./nacos/8850/nacos/bin/startup.sh -m standalone
           sleep 30s
           cat nacos/8850/nacos/logs/start.out

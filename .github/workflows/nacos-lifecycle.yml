@@ -46,5 +46,3 @@ jobs:
           ./nacos/8848/nacos/bin/startup.sh -m standalone
           sleep 30s
           cat nacos/8848/nacos/logs/start.out
-          ./nacos/8848/nacos/bin/shutdown.sh
-          sleep 10s

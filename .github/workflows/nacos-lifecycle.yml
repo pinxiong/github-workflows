@@ -32,6 +32,9 @@ jobs:
           
   nacos-lifecycle-windows:
     runs-on: windows-2019
+    defaults:
+      run:
+        shell: bash
     steps:
       - name: "nacos lifecycle windows"
         run: |

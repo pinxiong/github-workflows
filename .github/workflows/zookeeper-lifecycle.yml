@@ -1,0 +1,41 @@
+name: Zookeeper Lifecycle
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  zookeeper-lifecycle-ubuntu:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+      - name: "Start zookeeper instances"
+        run: |
+          cd zookeeper && bash ./zkCmd.sh start
+      - name: "Reset zookeeper instances"
+        run : |
+          cd zookeeper && bash ./zkCmd.sh reset
+      - name: "Stop zookeeper instances"
+        run : |
+          cd zookeeper && bash ./zkCmd.sh stop
+          
+  zookeeper-lifecycle-windows:
+    runs-on: windows-2019
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: msys2/setup-msys2@v2
+        with:
+          update: true
+          install: >-
+            base-devel
+            git
+      - uses: actions/checkout@v1
+      - name: "Start zookeeper instances"
+        run: |
+          cd zookeeper && bash ./zkCmd.sh start
+      - name: "Reset zookeeper instances"
+        run : |
+          cd zookeeper && bash ./zkCmd.sh reset
+      - name: "Stop zookeeper instances"
+        run : |
+          cd zookeeper && bash ./zkCmd.sh stop

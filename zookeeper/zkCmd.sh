@@ -30,10 +30,10 @@ ZOOKEEPER_BINARY_URL="https://archive.apache.org/dist/zookeeper/zookeeper-3.6.0/
 
 case $1 in 
 start)
-    echo "Download zookeeper instances...."
+    echo "Setup zookeeper instances...."
+    # download zookeeper instances
     mkdir -p $ZK_2181_DIR $ZK_2182_DIR $LOG_DIR/2181 $LOG_DIR/2182
     wget -P $DIR/zookeeper -c $ZOOKEEPER_BINARY_URL
-    echo "Setup zookeeper instances...."
     # setup zookeeper with 2182
     tar -zxf $DIR/zookeeper/apache-zookeeper-3.6.0-bin.tar.gz -C $ZK_2181_DIR
     cp $ZK_2181_DIR/apache-zookeeper-3.6.0-bin/conf/zoo_sample.cfg $ZK_2181_DIR/apache-zookeeper-3.6.0-bin/conf/zoo.cfg
@@ -48,11 +48,7 @@ start)
     echo "admin.serverPort=8082" >> $ZK_2182_DIR/apache-zookeeper-3.6.0-bin/conf/zoo.cfg
     echo "Start zookeeper instances...."
     $ZK_SERVER_2181 start
-    echo "zookeeper config 2181"
-    cat $ZK_2181_DIR/apache-zookeeper-3.6.0-bin/conf/zoo.cfg
     $ZK_SERVER_2182 start
-    echo "zookeeper config 2182"
-    cat $ZK_2182_DIR/apache-zookeeper-3.6.0-bin/conf/zoo.cfg
     ;;
 stop)
     echo "Stop zookeeper instances...."

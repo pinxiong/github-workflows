@@ -16,9 +16,6 @@ jobs:
           
   zookeeper-lifecycle-windows:
     runs-on: windows-2019
-    defaults:
-      run:
-        shell: msys2 {0}
     steps:
       - uses: msys2/setup-msys2@v2
         with:
@@ -28,8 +25,10 @@ jobs:
             git
       - uses: actions/checkout@v1
       - name: "Start zookeeper instances"
+        shell: msys2 {0}
         run: |
           cd zookeeper && bash ./zkCmd.sh start
       - name: "Stop zookeeper instances"
+        shell: msys2 {0}
         run : |
           cd zookeeper && bash ./zkCmd.sh stop

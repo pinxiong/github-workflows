@@ -48,7 +48,11 @@ start)
     echo "admin.serverPort=8082" >> $ZK_2182_DIR/apache-zookeeper-3.6.0-bin/conf/zoo.cfg
     echo "Start zookeeper instances...."
     $ZK_SERVER_2181 start
+    echo "zookeeper config 2181"
+    cat $ZK_2181_DIR/apache-zookeeper-3.6.0-bin/conf/zoo.cfg
     $ZK_SERVER_2182 start
+    echo "zookeeper config 2182"
+    cat $ZK_2182_DIR/apache-zookeeper-3.6.0-bin/conf/zoo.cfg
     ;;
 stop)
     echo "Stop zookeeper instances...."

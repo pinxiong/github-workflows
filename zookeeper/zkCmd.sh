@@ -19,7 +19,6 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ZK_2181_DIR=$DIR/zookeeper/2181
 ZK_2182_DIR=$DIR/zookeeper/2182
-LOG_DIR=$DIR/zookeeper/logs
 
 ZK_SERVER_2181=$ZK_2181_DIR/apache-zookeeper-3.6.0-bin/bin/zkServer.sh
 ZK_SERVER_2182=$ZK_2182_DIR/apache-zookeeper-3.6.0-bin/bin/zkServer.sh
@@ -31,18 +30,18 @@ ZOOKEEPER_BINARY_URL="https://archive.apache.org/dist/zookeeper/zookeeper-3.6.0/
 case $1 in 
 start)
     echo "Download zookeeper instances...."
-    mkdir -p $ZK_2181_DIR $ZK_2182_DIR $LOG_DIR/2181 $LOG_DIR/2182
-    wget -O $DIR/zookeeper/apache-zookeeper.tar.gz -c -N --show-progress $ZOOKEEPER_BINARY_URL
+    mkdir -p $ZK_2181_DIR $ZK_2182_DIR
+    wget -P $DIR/zookeeper -c $ZOOKEEPER_BINARY_URL
     echo "Setup zookeeper instances...."
     # setup zookeeper with 2182
-    tar -zxvf $DIR/zookeeper/apache-zookeeper.tar.gz -C $ZK_2181_DIR
+    tar -zxf $DIR/zookeeper/apache-zookeeper-3.6.0-bin.tar.gz -C $ZK_2181_DIR
     cp $ZK_2181_DIR/apache-zookeeper-3.6.0-bin/conf/zoo_sample.cfg $ZK_2181_DIR/apache-zookeeper-3.6.0-bin/conf/zoo.cfg
-    sed -i "s#^dataDir=.*#dataDir=$LOG_DIR/2181#g" $ZK_2181_DIR/apache-zookeeper-3.6.0-bin/conf/zoo.cfg
+    sed -i "s#^dataDir=.*#dataDir=2181#g" $ZK_2181_DIR/apache-zookeeper-3.6.0-bin/conf/zoo.cfg
     echo "admin.serverPort=8081" >> $ZK_2181_DIR/apache-zookeeper-3.6.0-bin/conf/zoo.cfg
     # setup zookeeper with 2182
-    tar -zxvf $DIR/zookeeper/apache-zookeeper.tar.gz -C $ZK_2182_DIR
+    tar -zxf $DIR/zookeeper/apache-zookeeper-3.6.0-bin.tar.gz -C $ZK_2182_DIR
     cp $ZK_2182_DIR/apache-zookeeper-3.6.0-bin/conf/zoo_sample.cfg $ZK_2182_DIR/apache-zookeeper-3.6.0-bin/conf/zoo.cfg
-    sed -i "s#^dataDir=.*#dataDir=$LOG_DIR/2182#g" $ZK_2182_DIR/apache-zookeeper-3.6.0-bin/conf/zoo.cfg
+    sed -i "s#^dataDir=.*#dataDir=2182#g" $ZK_2182_DIR/apache-zookeeper-3.6.0-bin/conf/zoo.cfg
     echo "admin.serverPort=8082" >> $ZK_2182_DIR/apache-zookeeper-3.6.0-bin/conf/zoo.cfg
     echo "Start zookeeper instances...."
     $ZK_SERVER_2181 start

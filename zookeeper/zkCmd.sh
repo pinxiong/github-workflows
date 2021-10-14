@@ -37,14 +37,14 @@ start)
     # setup zookeeper with 2182
     tar -zxf $DIR/zookeeper/apache-zookeeper-3.6.0-bin.tar.gz -C $ZK_2181_DIR
     cp $ZK_2181_DIR/apache-zookeeper-3.6.0-bin/conf/zoo_sample.cfg $ZK_2181_DIR/apache-zookeeper-3.6.0-bin/conf/zoo.cfg
-    sed -i "" "s#^clientPort=.*#clientPort=2181#g" $ZK_2181_DIR/apache-zookeeper-3.6.0-bin/conf/zoo.cfg
-    sed -i "" "s#^dataDir=.*#dataDir=$LOG_DIR/2181#g" $ZK_2181_DIR/apache-zookeeper-3.6.0-bin/conf/zoo.cfg
+    sed -i "s#^clientPort=.*#clientPort=2181#g" $ZK_2181_DIR/apache-zookeeper-3.6.0-bin/conf/zoo.cfg
+    sed -i "s#^dataDir=.*#dataDir=$LOG_DIR/2181#g" $ZK_2181_DIR/apache-zookeeper-3.6.0-bin/conf/zoo.cfg
     echo "admin.serverPort=8081" >> $ZK_2181_DIR/apache-zookeeper-3.6.0-bin/conf/zoo.cfg
     # setup zookeeper with 2182
     tar -zxf $DIR/zookeeper/apache-zookeeper-3.6.0-bin.tar.gz -C $ZK_2182_DIR
     cp $ZK_2182_DIR/apache-zookeeper-3.6.0-bin/conf/zoo_sample.cfg $ZK_2182_DIR/apache-zookeeper-3.6.0-bin/conf/zoo.cfg
-    sed -i "" "s#^clientPort=.*#clientPort=2182#g" $ZK_2182_DIR/apache-zookeeper-3.6.0-bin/conf/zoo.cfg
-    sed -i "" "s#^dataDir=.*#dataDir=$LOG_DIR/2182#g" $ZK_2182_DIR/apache-zookeeper-3.6.0-bin/conf/zoo.cfg
+    sed -i "s#^clientPort=.*#clientPort=2182#g" $ZK_2182_DIR/apache-zookeeper-3.6.0-bin/conf/zoo.cfg
+    sed -i "s#^dataDir=.*#dataDir=$LOG_DIR/2182#g" $ZK_2182_DIR/apache-zookeeper-3.6.0-bin/conf/zoo.cfg
     echo "admin.serverPort=8082" >> $ZK_2182_DIR/apache-zookeeper-3.6.0-bin/conf/zoo.cfg
     echo "Start zookeeper instances...."
     $ZK_SERVER_2181 start
